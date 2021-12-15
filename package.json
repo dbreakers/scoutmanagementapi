@@ -1,0 +1,26 @@
+{
+  "name": "scout_management_api",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "express-validator": "^6.2.0",
+    "helmet": "^3.15.1",
+    "express-jwt": "^5.3.1",
+    "jwks-rsa": "^1.4.0",
+    "morgan": "^1.9.1",
+    "jsonwebtoken": "^8.5.1",
+    "sequelize": "^6.3.4",
+    "swagger-ui-express": "^4.1.4",
+    "yamljs": "^0.3.0",
+     "joi": "^17.2.1"
+  }
+}
