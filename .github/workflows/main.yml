@@ -1,12 +1,17 @@
-name: Staging Deploy
-
-on:
-  push:
-    branches: [ master ]
+on: push
+name: 🚀 Deploy website on push
 jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+    
+    - name: 📂 Sync files
   
 
-    - name: FTP Deploy to WP Engine (Staging)
+    
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
         ftp-server:  ftp.2ndnewhawscouts.org.uk
