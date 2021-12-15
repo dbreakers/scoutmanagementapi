@@ -9,12 +9,9 @@ jobs:
       uses: actions/checkout@v2
     
     - name: 📂 Sync files
-  
-
-    
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
         ftp-server:  ftp.2ndnewhawscouts.org.uk
         ftp-username: ndnewhaw
         ftp-password: ${{ secrets.STAGING_FTP_PASSWORD }}
-        local-dir: /scoutmanagementapi.2ndnewhawscouts.org.uk
+        local-dir: ../scoutmanagementapi.2ndnewhawscouts.org.uk/
