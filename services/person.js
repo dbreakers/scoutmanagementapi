@@ -1,3 +1,5 @@
+// All Member records
+
 const db = require('../database');
 const helper = require('../helper'); 
 const config = require('../config');
