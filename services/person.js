@@ -1,8 +1,10 @@
-// All Member record actions v2.1
+// All Member record actions v2.2
 
 const db = require('../database');
 const helper = require('../helper'); 
 const config = require('../config');
+
+ 
 
 async function getSingle(id){
  // const offset = helper.getOffset(page, config.listPerPage);
