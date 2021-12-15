@@ -14,4 +14,4 @@ jobs:
         ftp-server:  ftp.2ndnewhawscouts.org.uk
         ftp-username: ndnewhaw
         ftp-password: ${{ secrets.STAGING_FTP_PASSWORD }}
-        server-dir: ./scoutmanagementapi.2ndnewhawscouts.org.uk/
+        server-dir: ../scoutmanagementapi.2ndnewhawscouts.org.uk/
