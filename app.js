@@ -12,7 +12,7 @@ const getperson = require('./services/person');
 const gethier = require('./services/hierarchy');
 
 const router = express.Router();
-const secretKey = "topSecretKey";
+const secretKey =   process.env.SECRET;
 
 
 app.use(cors());
@@ -22,7 +22,7 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(morgan('combined'));
 
 
-app.use('/api-docs', require('./swagger'));
+//app.use('/api-docs', require('./swagger'));
 
 
 app.get('/', (req, res) => res.send('Alive version 1.00'));
