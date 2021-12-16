@@ -1,4 +1,4 @@
-// All Member record actions v2.5
+// All Member record actions v2.6
 
 const db = require('../database');
 const helper = require('../helper'); 
