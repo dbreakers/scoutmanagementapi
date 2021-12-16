@@ -11,7 +11,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.2.0
       with:
-        ftp-server:  ftp.2ndnewhawscouts.org.uk
-        ftp-username: ndnewhaw
-        ftp-password: ${{ secrets.STAGING_FTP_PASSWORD }}
+        server:  ftp.2ndnewhawscouts.org.uk
+        username: ndnewhaw
+        password: ${{ secrets.STAGING_FTP_PASSWORD }}
         server-dir: ./scoutmanagementapi.2ndnewhawscouts.org.uk/
