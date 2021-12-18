@@ -8,7 +8,7 @@ async function addnode(newnode){
 // console.log("hhello");
   let message = '';
   let error = 200;
-  const check = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id = ?", ["ST",newnode.id]);
+  const check = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.id]);
   if (newnode.hasOwnProperty('parent')&&(newnode.parent!==null)) {
      const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.parent]);
      if  (check2.length!=1) {message='Parent node does not exist'; error=400;}     
