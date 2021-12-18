@@ -11,7 +11,7 @@ const pool  = mysql.createPool(config.db);
 
 async function query(sql, params) {
  
-    
+    console.log(sql);
  // const connection = await mysql.createConnection(config.db);
   const [results, ] = await pool.execute(sql, params);
 //  connection.end();
