@@ -26,7 +26,7 @@ async function addnode(newnode){
     `INSERT INTO hierarchy_items 
     (hier_type,org_unit_id, description, type) 
     VALUES 
-    ('ST',?, ?, ?)`, 
+    ("ST",?, ?, ?)`, 
     [
       newnode.id, newnode.description, newnode.type
     ] 
