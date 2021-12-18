@@ -7,34 +7,33 @@ async function addnode(newnode){
 // console.log(newnode);
 // console.log("hhello");
   let message = '';
-  
-  const check = await db.query( "SELECT * from `hierarchy_items` WHERE org_unit_id = ?", [newnode.id]);
+  let error = 200;
+  const check = await db.query( "SELECT * from `hierarchy_items` WHERE hier_type= `ST and `org_unit_id = ?", [newnode.id]);
   if (newnode.hasOwnProperty('parent')&&(newnode.parent!==null)) {
-     const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE org_unit_id = ?", [newnode.parent]);
-     if  (check2.length!=1) {message='Parent node does not existing';} 
-      
+     const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE hier_type= `ST and org_unit_id = ?", [newnode.parent]);
+     if  (check2.length!=1) {message='Parent node does not exist'; error=400;}     
   } 
  
-  if (check.length>0) {  message='Node already exists';}
+  if (check.length>0) {  message='Node already exists';error=400;}
   
-  if (!newnode.hasOwnProperty('description')) {message='Description Missing'; }
-  if (!newnode.hasOwnProperty('id')) {message='ID Missing'; }
-  if (!newnode.hasOwnProperty('type')) {message='Type is Missing'; }
-  if (newnode.description===null) { newnode.description = "<>";}
+  if (!newnode.hasOwnProperty('description')) {message='Description Missing'; error=400;}
+  if (!newnode.hasOwnProperty('id')) {message='ID Missing'; error=400; }
+  if (!newnode.hasOwnProperty('type')) {message='Type is Missing';error=400; }
+  if (newnode.description===null) { newnode.description = "<Root>";}
  // console.log(newnode.description);
   if (message==='') {
   const result = await db.query(
     `INSERT INTO hierarchy_items 
-    (org_unit_id, description, type) 
+    (hier_type,org_unit_id, description, type) 
     VALUES 
-    (?, ?, ?)`, 
+    ('ST',?, ?, ?)`, 
     [
       newnode.id, newnode.description, newnode.type
     ] 
   );
   if ((newnode.hasOwnProperty('parent'))&&(newnode.parent!==null)) {
   const result2 = await db.query(
-    "INSERT INTO hierarchy_relate (org_unit_id, related_id,distance) SELECT ?,related_id,distance+1 from hierarchy_relate where org_unit_id = ? union all select ?,?,0",
+    "INSERT INTO hierarchy_relate (hier_type,org_unit_id, related_id,distance) SELECT hier_type,?,related_id,distance+1 from hierarchy_relate where org_unit_id = ? union all select `ST`,?,?,0",
      
     [
       newnode.id, newnode.parent,  newnode.id,  newnode.id
@@ -42,7 +41,7 @@ async function addnode(newnode){
   );
   } else {
    const result2 = await db.query(
-    "INSERT INTO hierarchy_relate  (org_unit_id, related_id,distance) VALUES( ?,?,0)",
+    "INSERT INTO hierarchy_relate  (hier_type,org_unit_id, related_id,distance) VALUES(`ST`, ?,?,0)",
      
     [
       newnode.id, newnode.id
@@ -50,10 +49,10 @@ async function addnode(newnode){
   );
   }
 //  console.log(result);
-   message = 'Error in creating Node';
+   message = 'Error in creating Node'; error=400;
 
     if (result.affectedRows) {
-    message = 'Node created successfully';
+    message = 'Node created successfully'; error=200;
      }
   } //else
  // { //message = "Org Unit exists with this key already";}
@@ -62,7 +61,7 @@ async function addnode(newnode){
 }
 
 async function getSingle(id){
-     const rows = await db.query(    "SELECT * from `hierarchy_items` WHERE org_unit_id = ?", [id]);
+     const rows = await db.query(    "SELECT * from `hierarchy_items` WHERE org_unit_id = ? and hier_type=`ST`", [id]);
  
   const data = helper.emptyOrRows(rows);
   
@@ -71,7 +70,7 @@ async function getSingle(id){
 }
 
 async function getPath(id){
-     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.related_id WHERE hierarchy_relate.org_unit_id  = ?", [id]);
+     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.related_id WHERE hier_type=`ST` and hierarchy_relate.org_unit_id  = ?", [id]);
  
   const data = helper.emptyOrRows(rows);
   
@@ -80,7 +79,7 @@ async function getPath(id){
 }
 
 async function getChild(id){
-     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id WHERE hierarchy_relate.related_id = ?", [id]);
+     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id WHERE hierarchy_relate.related_id = ? and hier_type=`ST`", [id]);
  
   const data = helper.emptyOrRows(rows);
   

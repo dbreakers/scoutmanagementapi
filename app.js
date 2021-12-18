@@ -24,16 +24,20 @@ app.use(morgan('combined'));
 
 //app.use('/api-docs', require('./swagger'));
 
-
+// Members
 app.get('/', (req, res) => res.send('Alive version 1.00'));
 app.get('/members', async function(req, res, next) { res.json(await getperson.getMultiple(req.query.page))});
 app.get('/member/:memberId', async function(req, res, next) { res.json(await getperson.getSingle(req.params.memberId))});
 app.post('/member/add', async function(req, res, next) { res.status(201).json(await getperson.addSingle(req.body))});
+
+// Hierarchy
 app.get('/hier/getnode/:nodeId',async function(req, res, next) { res.json(await gethier.getSingle(req.params.nodeId))});
 app.get('/hier/getpath/:nodeId',async function(req, res, next) { res.json(await gethier.getPath(req.params.nodeId))});
 app.get('/hier/getchildren/:nodeId',async function(req, res, next) { res.json(await gethier.getChild(req.params.nodeId))});
 app.post("/hier/addnode", async function(req, res, next) {res.json(await gethier.addnode(req.body))} );
 
+
+// Error
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
