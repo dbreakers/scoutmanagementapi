@@ -61,7 +61,7 @@ async function addnode(newnode){
 }
 
 async function getSingle(id){
-     const rows = await db.query(    "SELECT * from `hierarchy_items` WHERE org_unit_id = ? and hier_type=`ST`", [id]);
+     const rows = await db.query(    "SELECT * from `hierarchy_items` WHERE org_unit_id = ? and hier_type = `ST`", [id]);
  
   const data = helper.emptyOrRows(rows);
   
