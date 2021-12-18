@@ -70,7 +70,7 @@ async function getSingle(id){
 }
 
 async function getPath(id){
-     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.related_id WHERE hier_type=? and hierarchy_relate.org_unit_id  = ?", ["ST",id]);
+     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.hier_type = hierarchy_relate.hier_type and hierarchy_items.org_unit_id = hierarchy_relate.related_id WHERE hierarchy_relate.hier_type=? and hierarchy_relate.org_unit_id  = ?", ["ST",id]);
  
   const data = helper.emptyOrRows(rows);
   
@@ -79,7 +79,7 @@ async function getPath(id){
 }
 
 async function getChild(id){
-     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id WHERE hierarchy_relate.related_id = ? and hier_type=?", [id,"ST"]);
+     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=?", [id,"ST"]);
  
   const data = helper.emptyOrRows(rows);
   
