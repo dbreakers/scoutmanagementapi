@@ -13,7 +13,8 @@ async function addnode(newnode){
      const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.parent]);
      if  (check2.length!=1) {message='Parent node does not exist'; error=400;}     
   } 
- 
+ console.log("ID: "+newnode.id);
+ console.log(check);
   if (check.length>0) {  message='Node already exists';error=400;}
   
   if (!newnode.hasOwnProperty('description')) {message='Description Missing'; error=400;}
@@ -26,9 +27,9 @@ async function addnode(newnode){
     `INSERT INTO hierarchy_items 
     (hier_type,org_unit_id, description, type) 
     VALUES 
-    ("ST",?, ?, ?)`, 
+    (?,?, ?, ?)`, 
     [
-      newnode.id, newnode.description, newnode.type
+      "ST",newnode.id, newnode.description, newnode.type
     ] 
   );
   if ((newnode.hasOwnProperty('parent'))&&(newnode.parent!==null)) {
