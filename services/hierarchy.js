@@ -52,7 +52,7 @@ async function addnode(newnode){
    message = 'Error in creating Node'; error=400;
 
     if (result.affectedRows) {
-    message = 'Node created successfully'; error=200;
+    message = 'Node created successfully '+newnode.id; error=200;
      }
   } //else
  // { //message = "Org Unit exists with this key already";}
