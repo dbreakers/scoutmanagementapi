@@ -105,5 +105,6 @@ module.exports = {
   addnode,
   getSingle,
   getChild,
+  getChildLevel,
   getPath
 }
