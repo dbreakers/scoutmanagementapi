@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
 
 
 //https://blog.logrocket.com/node-js-express-js-mysql-rest-api-example/
-https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password
+//https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password
 //https://joi.dev/api/?v=17.4.2
 //https://austinhale.medium.com/building-a-node-api-with-express-and-google-cloud-sql-9bda260b040f
 //https://www.sohamkamani.com/nodejs/oauth/
