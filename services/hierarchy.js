@@ -89,7 +89,7 @@ async function getChild(id){
 }
 
 async function getChildLevel(id,distance){
-  const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and  and hierarchy_relate.distance=?", [id,"ST",distance]);
+  const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and hierarchy_relate.distance=?", [id,"ST",distance]);
 
 const data = helper.emptyOrRows(rows);
 
