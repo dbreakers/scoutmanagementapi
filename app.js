@@ -33,6 +33,7 @@ app.post('/member/add', async function(req, res, next) { res.status(201).json(aw
 // Hierarchy
 app.get('/hier/getnode/:nodeId',async function(req, res, next) { res.json(await gethier.getSingle(req.params.nodeId))});
 app.get('/hier/getpath/:nodeId',async function(req, res, next) { res.json(await gethier.getPath(req.params.nodeId))});
+app.get('/hier/getchildren/:nodeId/distance/:distance',async function(req, res, next) { res.json(await gethier.getChildLevel(req.params.nodeId,req.params.distance))});
 app.get('/hier/getchildren/:nodeId',async function(req, res, next) { res.json(await gethier.getChild(req.params.nodeId))});
 app.post("/hier/addnode", async function(req, res, next) {res.json(await gethier.addnode(req.body))} );
 

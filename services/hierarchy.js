@@ -88,6 +88,15 @@ async function getChild(id){
   
 }
 
+async function getChildLevel(id,distance){
+  const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and  and hierarchy_relate.distance=?", [id,"ST",distance]);
+
+const data = helper.emptyOrRows(rows);
+
+return  data;
+
+}
+
 //SELECT * FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.related_id WHERE hierarchy_relate.org_unit_id = 10012687
 //SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id WHERE hierarchy_relate.related_id =10010601
 //SELECT *  FROM `role_person` left join hierarchy_items on hierarchy_items.org_unit_id = role_person.org_unit where role_person.org_unit = 10044052  and (role_person.date_from >= '2021-11-01' and role_person.date_from <= '2021-12-01')
