@@ -3,7 +3,7 @@ const helper = require('../helper');
 const config = require('../config');
 
 
-async function addnode(newnode){
+async function addnode(newnode,res){
 // console.log(newnode);
 // console.log("hhello");
   let message = '';

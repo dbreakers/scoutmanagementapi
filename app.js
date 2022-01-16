@@ -37,7 +37,7 @@ app.get('/hier/getchildren/:nodeId/distance/:distance',async function(req, res, 
 app.get('/hier/getchildren/:nodeId',async function(req, res, next) { res.json(await gethier.getChild(req.params.nodeId))});
 app.get('/hier/find/:match',async function(req, res, next) { res.json(await gethier.find(req.params.match,req.query.page))});
 //app.post("/hier/addnode", async function(req, res, next) {res.status(201).json(await gethier.addnode(req.body))} );
-app.post("/hier/addnode", async function(req, res, next) {await gethier.addnode(req.body)} );
+app.post("/hier/addnode", async function(req, res, next) {await gethier.addnode(req.body,res)} );
 
 // Error
 app.use((err, req, res, next) => {
