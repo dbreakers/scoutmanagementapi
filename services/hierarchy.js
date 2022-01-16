@@ -8,18 +8,21 @@ async function addnode(newnode,res){
 // console.log("hhello");
   let message = '';
   let error = 200;
+ 
+  
+  if (!newnode.hasOwnProperty('description')) {message='Description Missing'; error=400;}
+  if (!newnode.hasOwnProperty('id')) {message='ID Missing'; error=400; }
+  if (!newnode.hasOwnProperty('type')) {message='Type is Missing';error=400; }
+  if (error=200) {
   const check = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.id]);
   if (newnode.hasOwnProperty('parent')&&(newnode.parent!==null)) {
      const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.parent]);
      if  (check2.length!=1) {message='Parent node does not exist'; error=400;}     
   } 
+}
  console.log("ID: "+newnode.id);
  console.log(check);
   if (check.length>0) {  message='Node already exists';error=400;}
-  
-  if (!newnode.hasOwnProperty('description')) {message='Description Missing'; error=400;}
-  if (!newnode.hasOwnProperty('id')) {message='ID Missing'; error=400; }
-  if (!newnode.hasOwnProperty('type')) {message='Type is Missing';error=400; }
   if (newnode.description===null) { newnode.description = "<Root>";}
  // console.log(newnode.description);
   if (message==='') {
