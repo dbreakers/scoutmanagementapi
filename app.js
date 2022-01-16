@@ -35,7 +35,7 @@ app.get('/hier/getnode/:nodeId',async function(req, res, next) { res.json(await 
 app.get('/hier/getpath/:nodeId',async function(req, res, next) { res.json(await gethier.getPath(req.params.nodeId))});
 app.get('/hier/getchildren/:nodeId/distance/:distance',async function(req, res, next) { res.json(await gethier.getChildLevel(req.params.nodeId,req.params.distance))});
 app.get('/hier/getchildren/:nodeId',async function(req, res, next) { res.json(await gethier.getChild(req.params.nodeId))});
-app.get('/hier/search/:match',async function(req, res, next) { res.json(await gethier.find(req.params.match))});
+app.get('/hier/find/:match',async function(req, res, next) { res.json(await gethier.find(req.params.match))});
 app.post("/hier/addnode", async function(req, res, next) {res.json(await gethier.addnode(req.body))} );
 
 
