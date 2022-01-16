@@ -84,8 +84,8 @@ async function getPath(id){
 }
 
 async function getChild(id){
-     const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=?", [id,"ST"]);
- 
+   //  const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=?", [id,"ST"]);
+   const rows = await db.query ("SELECT hierarchy_relate.org_unit_id,hierarchy_items.description, parent.org_unit_id as parent_org_unit_id, parent.description as parent_description,hierarchy_relate.distance FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type join `hierarchy_relate` as parent_link on parent_link.org_unit_id = hierarchy_relate.org_unit_id and parent_link.distance = 1 join `hierarchy_items` as parent on parent_link.related_id = parent.org_unit_id WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=?",[id,"ST"]);
   const data = helper.emptyOrRows(rows);
    
   return  data;
@@ -93,7 +93,8 @@ async function getChild(id){
 }
 
 async function getChildLevel(id,distance){
-  const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and hierarchy_relate.distance=?", [id,"ST",distance]);
+  //const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and hierarchy_relate.distance=?", [id,"ST",distance]);
+  const rows = await db.query ("SELECT hierarchy_relate.org_unit_id,hierarchy_items.description, parent.org_unit_id as parent_org_unit_id, parent.description as parent_description,hierarchy_relate.distance FROM `hierarchy_relate` right join hierarchy_items on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type join `hierarchy_relate` as parent_link on parent_link.org_unit_id = hierarchy_relate.org_unit_id and parent_link.distance = 1 join `hierarchy_items` as parent on parent_link.related_id = parent.org_unit_id WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and hierarchy_relate.distance=?",[id,"ST",distance]);
 
 const data = helper.emptyOrRows(rows);
 
