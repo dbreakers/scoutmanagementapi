@@ -19,13 +19,14 @@ async function addnode(newnode,res){
      const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.parent]);
      if  (check2.length!=1) {message='Parent node does not exist'; error=400;}     
   } 
-}
+
  console.log("ID: "+newnode.id);
  console.log(check);
   if (check.length>0) {  message='Node already exists';error=400;}
   if (newnode.description===null) { newnode.description = "<Root>";}
  // console.log(newnode.description);
-  if (message==='') {
+} 
+ if (message==='') {
   const result = await db.query(
     `INSERT INTO hierarchy_items 
     (hier_type,org_unit_id, description, type) 
