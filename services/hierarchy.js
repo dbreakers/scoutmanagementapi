@@ -106,7 +106,7 @@ async function find(searchterm,page = 1){
 
 const data = helper.emptyOrRows(rows);
 
-return  [data,count,offset,config.listPerPage];
+return  [data,count[0].c,offset,config.listPerPage];
 
 }
 
