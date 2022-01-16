@@ -83,13 +83,22 @@ async function getChild(id){
      const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=?", [id,"ST"]);
  
   const data = helper.emptyOrRows(rows);
-  
+   
   return  data;
   
 }
 
 async function getChildLevel(id,distance){
   const rows = await db.query(    "SELECT * FROM `hierarchy_relate` right join hierarchy_items  on hierarchy_items.org_unit_id = hierarchy_relate.org_unit_id and hierarchy_items.hier_type = hierarchy_relate.hier_type WHERE hierarchy_relate.related_id = ? and hierarchy_relate.hier_type=? and hierarchy_relate.distance=?", [id,"ST",distance]);
+
+const data = helper.emptyOrRows(rows);
+
+return  data;
+
+}
+
+async function find(searchterm){
+  const rows = await db.query(    "SELECT * FROM `hierarchy_items` WHERE `description` LIKE ?", [searchterm]);
 
 const data = helper.emptyOrRows(rows);
 
@@ -106,5 +115,6 @@ module.exports = {
   getSingle,
   getChild,
   getChildLevel,
+  find,
   getPath
 }
