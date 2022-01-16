@@ -98,7 +98,8 @@ return  data;
 }
 
 async function find(searchterm){
-  const rows = await db.query(    "SELECT * FROM `hierarchy_items` WHERE `description` LIKE `%?%`", [searchterm]);
+  searchterm = "%"+searchterm+"%";
+  const rows = await db.query(    "SELECT * FROM `hierarchy_items` WHERE `description` LIKE ?", [searchterm]);
 
 const data = helper.emptyOrRows(rows);
 
