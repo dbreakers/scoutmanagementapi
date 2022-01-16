@@ -97,7 +97,7 @@ return  data;
 
 }
 
-async function find(searchterm,page){
+async function find(searchterm,(page=1)){
   searchterm = "%"+searchterm+"%";
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(    "SELECT a.org_unit_id,a.description,a.type, parent.org_unit_id as parent_id,parent.description as parent_description,parent.type as parent_type FROM `hierarchy_items` as a join hierarchy_relate on a.org_unit_id = hierarchy_relate.org_unit_id join `hierarchy_items` as parent on hierarchy_relate.related_id = parent.org_unit_id WHERE a.description LIKE ? and hierarchy_relate.distance = 1 and a.hier_type='ST' LIMIT ?,?", [searchterm,offset, config.listPerPage]);
