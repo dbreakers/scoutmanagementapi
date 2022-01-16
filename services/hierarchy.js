@@ -13,7 +13,7 @@ async function addnode(newnode,res){
   if (!newnode.hasOwnProperty('description')) {message='Description Missing'; error=400;}
   if (!newnode.hasOwnProperty('id')) {message='ID Missing'; error=400; }
   if (!newnode.hasOwnProperty('type')) {message='Type is Missing';error=400; }
-  if (error=200) {
+  if (error==200) {
   const check = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.id]);
   if (newnode.hasOwnProperty('parent')&&(newnode.parent!==null)) {
      const check2 = await db.query( "SELECT * from `hierarchy_items` WHERE `hier_type`= ? and `org_unit_id` = ?", ["ST",newnode.parent]);
