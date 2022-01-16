@@ -57,8 +57,8 @@ async function addnode(newnode){
      }
   } //else
  // { //message = "Org Unit exists with this key already";}
-
-  return {message};
+  return res.status(error).json(message);
+ // return {message};
 }
 
 async function getSingle(id){
